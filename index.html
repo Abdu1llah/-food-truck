@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عربة الذواقة - أشهى المأكولات العربية</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
+        
+        :root {
+            --primary-color: #d35400;
+            --secondary-color: #34495e;
+            --accent-color: #f39c12;
+            --bg-color: #f9f9f9;
+            --text-color: #333;
+            --header-height: 80px;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        header.scrolled {
+            background-color: rgba(211, 84, 0, 0.9);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: var(--header-height);
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
+        nav ul {
+            list-style-type: none;
+            display: flex;
+        }
+        
+        nav ul li {
+            margin-left: 20px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        .hero {
+            background: url('pexels-ella-olsson-572949-1640773.jpg') center/cover no-repeat fixed;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        main {
+            padding-top: var(--header-height);
+        }
+        
+        section {
+            padding: 80px 0;
+        }
+        
+        h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+            font-size: 2.5rem;
+        }
+        
+        .menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .menu-item {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .menu-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .menu-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .menu-item-content {
+            padding: 20px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: #e67e22;
+            transform: translateY(-2px);
+        }
+        
+        #gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        #gallery img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        
+        #gallery img:hover {
+            transform: scale(1.05);
+        }
+        
+        .testimonials {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .testimonial {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            flex-basis: calc(50% - 15px);
+            max-width: 500px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .testimonial:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        
+        .testimonial-author {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-top: 10px;
+        }
+        
+        .location-map {
+            height: 400px;
+            background-color: #eee;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2em;
+            color: #777;
+            margin-top: 30px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        footer {
+            background-color: var(--secondary-color);
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        .social-icons {
+            margin-top: 20px;
+        }
+        
+        .social-icons a {
+            color: white;
+            font-size: 1.5em;
+            margin: 0 10px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            color: var(--accent-color);
+            transform: scale(1.1);
+        }
+        
+        #scroll-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        
+        #scroll-to-top:hover {
+            background-color: var(--accent-color);
+            transform: scale(1.1);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                height: auto;
+                padding: 20px 0;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                margin-top: 20px;
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .testimonial {
+                flex-basis: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+
+        .nav-toggle {
+    display: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    nav ul {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: var(--header-height);
+        left: 0;
+        background-color: var(--primary-color);
+        padding: 20px 0;
+        border-top: 1px solid var(--accent-color);
+    }
+    
+    nav ul li {
+        margin: 10px 0;
+        text-align: center;
+    }
+
+    .nav-toggle {
+        display: block;
+    }
+
+    nav ul.show {
+        display: flex;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="container header-content">
+            <a href="#" class="logo">عربة الذواقة</a>
+            <nav>
+                <ul id="nav-menu">
+                    <li><a href="#home">الرئيسية</a></li>
+                    <li><a href="#menu">القائمة</a></li>
+                    <li><a href="#about">عن المطعم</a></li>
+                    <li><a href="#gallery">معرض الصور</a></li>
+                    <li><a href="#testimonials">آراء العملاء</a></li>
+                    <li><a href="#contact">اتصل بنا</a></li>
+                </ul>
+            </nav>
+            <div id="nav-toggle" class="nav-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+    
+
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content lazyload" data-bg="url('path/to/new-background.jpg')" data-aos="fade-up">
+                <h1>عربة الذواقة</h1>
+                <p>أشهى المأكولات العربية على عجلات!</p>
+                <a href="#menu" class="btn">استعرض القائمة</a>
+            </div>
+        </section>
+        
+        <section id="menu">
+            <div class="container">
+                <h2 data-aos="fade-up">قائمة الطعام</h2>
+                <div class="menu">
+                    <div class="menu-item" data-aos="fade-up">
+                        <img src="pexels-nishantaneja-2955819.jpg" alt="شاورما">
+                        <div class="menu-item-content">
+                            <h3>شاورما</h3>
+                            <p>شرائح لحم مشوية مع خضروات طازجة وصلصة خاصة</p>
+                            <p>السعر: 25 ريال</p>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-aos="fade-up" data-aos-delay="100">
+                        <img src="pexels-n-voitkevich-6275158.jpg" alt="فلافل">
+                        <div class="menu-item-content">
+                            <h3>فلافل</h3>
+                            <p>كرات الحمص المقلية مع طحينة وسلطة</p>
+                            <p>السعر: 15 ريال</p>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-aos="fade-up" data-aos-delay="200">
+                        <img src="pexels-paggiarofrancesco-604660.jpg" alt="كباب">
+                        <div class="menu-item-content">
+                            <h3>كباب</h3>
+                            <p>لحم مفروم متبل ومشوي مع أرز بخاري</p>
+                            <p>السعر: 30 ريال</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="about">
+            <div class="container">
+                <h2 data-aos="fade-up">عن المطعم</h2>
+                <p data-aos="fade-up">عربة الذواقة هي مشروع فريد يجمع بين الأصالة العربية وحداثة الفود تراك. نحن نسعى لتقديم تجربة طعام لا تُنسى، مع الحفاظ على جودة وأصالة المأكولات العربية.</p>
+                <p data-aos="fade-up" data-aos-delay="100">من خلال فريق عمل محترف وشغوف، نحرص على أن تكون كل وجبة تُقدَّم لكم مليئة بالنكهات والابتسامات.</p>
+            </div>
+        </section>
+        
+        <section id="gallery">
+            <div class="container">
+                <h2 data-aos="fade-up">معرض الصور</h2>
+                <div id="gallery" data-aos="fade-up" data-aos-delay="100">
+                    <img src="pexels-n-voitkevich-6275158.jpg" alt="صورة 1">
+                    <img src="pexels-nishantaneja-2955819.jpg" alt="صورة 2">
+                    <img src="pexels-paggiarofrancesco-604660.jpg" alt="صورة 3">
+                </div>
+            </div>
+        </section>
+        
+        <section id="testimonials">
+            <div class="container">
+                <h2 data-aos="fade-up">آراء العملاء</h2>
+                <div class="testimonials" data-aos="fade-up" data-aos-delay="100">
+                    <div class="testimonial">
+                        <p>أفضل شاورما تناولتها في حياتي! النكهة لا تُقاوم والخدمة رائعة.</p>
+                        <p class="testimonial-author">- أحمد</p>
+                    </div>
+                    <div class="testimonial">
+                        <p>الفلافل لذيذة للغاية والطعم أصلي. سأعود بالتأكيد مرة أخرى.</p>
+                        <p class="testimonial-author">- ليلى</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="contact">
+            <div class="container">
+                <h2 data-aos="fade-up">اتصل بنا</h2>
+                <p data-aos="fade-up">يمكنك العثور علينا في المواقع التالية:</p>
+                <div class="location-map" data-aos="fade-up" data-aos-delay="100">
+                    <p>خريطة الموقع قادمة قريبًا!</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 عربة الذواقة. جميع الحقوق محفوظة.</p>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+    
+    <div id="scroll-to-top" onclick="scrollToTop()">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+    
+    <script>
+        AOS.init();
+        
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+        
+        const scrollToTop = () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+        
+        window.addEventListener('scroll', () => {
+            const scrollBtn = document.getElementById('scroll-to-top');
+            if (window.scrollY > 300) {
+                scrollBtn.style.display = 'block';
+            } else {
+                scrollBtn.style.display = 'none';
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const navToggle = document.getElementById('nav-toggle');
+            const navMenu = document.getElementById('nav-menu');
+    
+            navToggle.addEventListener('click', function () {
+                navMenu.classList.toggle('show');
+            });
+        });
+    </script>
+    
+</body>
+</html>
